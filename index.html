@@ -23,14 +23,18 @@
         const canvas = document.getElementById('matrixRain');
         const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas(); // Ajusta o tamanho do canvas ao carregar a página
 
         const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         const fontSize = 16;
-        const columns = canvas.width / fontSize;
+        let columns = canvas.width / fontSize;
 
-        const drops = Array(Math.floor(columns)).fill(1);
+        let drops = Array(Math.floor(columns)).fill(1);
 
         function draw() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -56,8 +60,9 @@
         setInterval(draw, 50);
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            resizeCanvas(); // Redimensiona o canvas
+            columns = canvas.width / fontSize; // Recalcula o número de colunas
+            drops = Array(Math.floor(columns)).fill(1); // Recria as gotas
         });
     </script>
 </body>
